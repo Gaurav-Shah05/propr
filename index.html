@@ -1,9 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
+    
     <script>
         // Set the correct base path depending on hosting domain
         window.basePath = window.location.hostname.includes('github.io') ? '/propr/' : '/';
+        
+        // Intercept logo image requests
+        const originalFetch = window.fetch;
+        window.fetch = function(url, options) {
+            if (url && typeof url === 'string' && url.includes('/propr/prolaspe-logo.jpg')) {
+                return originalFetch('/prolaspe-logo.jpg', options);
+            }
+            return originalFetch(url, options);
+        }
         
         // Dynamically set all resource URLs after page loads
         document.addEventListener('DOMContentLoaded', function() {
@@ -14,17 +24,6 @@
     
     <link href="https://cdn.tailwindcss.com" rel="stylesheet">
     <meta charset="utf-8"/>
-
-    <script>
-      // Intercept logo image requests
-      const originalFetch = window.fetch;
-      window.fetch = function(url, options) {
-        if (url.includes('/propr/prolaspe-logo.jpg')) {
-          return originalFetch('/prolaspe-logo.jpg', options);
-        }
-        return originalFetch(url, options);
-      }
-    </script>
     
     <!-- Dynamically set resource URLs -->
     <link id="favicon" rel="icon">
