@@ -2,37 +2,49 @@
 <html lang="en">
 <head>
     <script>
-        // Set base path depending on domain
+        // Set the correct base path depending on hosting domain
         window.basePath = window.location.hostname.includes('github.io') ? '/propr/' : '/';
         
-        // Set webpack public path for dynamic imports
-        window.__webpack_public_path__ = window.basePath + 'static/';
+        // Dynamically set all resource URLs after page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // This runs too late for initial resources, but helps with dynamically loaded ones
+            window.__webpack_public_path__ = window.basePath + 'static/';
+        });
     </script>
     
     <link href="https://cdn.tailwindcss.com" rel="stylesheet">
     <meta charset="utf-8"/>
-    <link rel="icon" id="favicon" />
+    
+    <!-- Dynamically set resource URLs -->
+    <link id="favicon" rel="icon">
     <script>document.getElementById('favicon').href = window.basePath + 'calculator.ico';</script>
     
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="theme-color" content="#000000"/>
     <meta name="description" content="Web site created using create-react-app"/>
     
-    <link rel="apple-touch-icon" id="apple-icon" />
+    <link id="apple-icon" rel="apple-touch-icon">
     <script>document.getElementById('apple-icon').href = window.basePath + 'calculator.png';</script>
     
-    <link rel="manifest" id="manifest-link" />
-    <script>document.getElementById('manifest-link').href = window.basePath + 'manifest.json';</script>
+    <link id="manifest" rel="manifest">
+    <script>document.getElementById('manifest').href = window.basePath + 'manifest.json';</script>
     
     <title>PROPR Calculator</title>
     
-    <!-- Main JS file with dynamic path -->
-    <script id="main-script" defer="defer"></script>
-    <script>document.getElementById('main-script').src = window.basePath + 'static/js/main.0885eb25.js';</script>
-    
-    <!-- Main CSS file with dynamic path -->
-    <link id="main-css" rel="stylesheet">
-    <script>document.getElementById('main-css').href = window.basePath + 'static/css/main.4b47beb6.css';</script>
+    <!-- Dynamic script loading -->
+    <script>
+        // Create and append the main JS script
+        const mainScript = document.createElement('script');
+        mainScript.defer = true;
+        mainScript.src = window.basePath + 'static/js/main.0885eb25.js';
+        document.head.appendChild(mainScript);
+        
+        // Create and append the main CSS link
+        const mainCSS = document.createElement('link');
+        mainCSS.rel = 'stylesheet';
+        mainCSS.href = window.basePath + 'static/css/main.4b47beb6.css';
+        document.head.appendChild(mainCSS);
+    </script>
 </head>
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
