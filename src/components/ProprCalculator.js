@@ -584,6 +584,14 @@ const RectalProlapseCalculator = () => {
           <p className="text-teal-200 text-xs mt-1">
             Based on research using data from patients with rectal prolapse surgery.
           </p>
+          <p className="text-teal-200 text-xs mt-2">
+            <a 
+              href="mailto:gaurav.shah@iitgn.ac.in" 
+              className="text-teal-200 hover:text-white underline transition-colors duration-200"
+            >
+              Contact Us
+            </a>
+          </p>
         </div>
       </footer>
     </div>
