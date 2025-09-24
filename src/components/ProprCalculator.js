@@ -22,6 +22,12 @@ const RectalProlapseCalculator = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 3;
   
+  // State for showing info explanation
+  const [showInfoExplanation, setShowInfoExplanation] = useState(false);
+  
+  // State for showing Wexner/SMIS explanation
+  const [showSmisExplanation, setShowSmisExplanation] = useState(false);
+  
   // Coefficient values from the model
   const coefficients = {
     intercept: -4.1062,
@@ -167,41 +173,14 @@ const RectalProlapseCalculator = () => {
             {/* Logo - Rectal Prolapse Image */}
             <div className="w-14 h-14 rounded-full bg-white p-1 mr-4 flex items-center justify-center overflow-hidden">
                 <img 
-                    src={process.env.PUBLIC_URL + '/prolapse-logo.jpg'} 
+                    src={process.env.PUBLIC_URL + '/prolaspe-logo.jpg'} 
                     alt="Rectal Prolapse" 
                     className="w-12 h-12 object-cover rounded-full" 
                 />
             </div>         
-               {/* <div className="w-14 h-14 rounded-full bg-white p-1 mr-4 flex items-center justify-center overflow-hidden">
-              <svg viewBox="0 0 100 100" className="w-12 h-12">
-                <defs>
-                  <clipPath id="circleView">
-                    <circle cx="50" cy="50" r="40" />
-                  </clipPath>
-                </defs>
-                <circle cx="50" cy="50" r="48" fill="#f0f0f0" />
-                <g clipPath="url(#circleView)">
-                  <ellipse cx="50" cy="55" rx="35" ry="45" fill="#f8d0c4" />
-                  <ellipse cx="50" cy="55" rx="28" ry="40" fill="#ea9a8f" />
-                  <ellipse cx="50" cy="50" rx="22" ry="30" fill="#d04c4c" stroke="#991f1f" strokeWidth="1" />
-                  <ellipse cx="50" cy="50" rx="18" ry="25" fill="#d04c4c" stroke="#991f1f" strokeWidth="1" />
-                  <ellipse cx="50" cy="50" rx="14" ry="20" fill="#d04c4c" stroke="#991f1f" strokeWidth="1" />
-                  <ellipse cx="50" cy="50" rx="10" ry="15" fill="#d04c4c" stroke="#991f1f" strokeWidth="1" />
-                  <ellipse cx="50" cy="50" rx="6" ry="10" fill="#d04c4c" stroke="#991f1f" strokeWidth="1" />
-                  <circle cx="50" cy="50" r="4" fill="#000" />
-                  <path d="M48 50 L52 50 M50 48 L50 52" stroke="#000" strokeWidth="1" />
-                </g>
-              </svg>
-            </div> */}
             <div>
-              <h1 className="text-2xl font-bold">PROPR</h1>
-              <p className="text-sm opacity-90">PRedictor of rectal Prolapse Recurrance</p>
+              <h1 className="text-2xl font-bold">PROPR: PRedictor of rectal Prolapse Recurrence</h1>
             </div>
-          </div>
-          <div className="ml-auto hidden md:flex items-center space-x-2 text-sm bg-teal-800 rounded px-3 py-1">
-            <span className="font-bold">AUC: 0.962</span>
-            <div className="h-4 border-r border-teal-300"></div>
-            <span className="font-bold">Bootstrap Validated</span>
           </div>
         </div>
       </header>
@@ -237,38 +216,36 @@ const RectalProlapseCalculator = () => {
                 {/* Step 1: Demographics */}
                 {currentStep === 1 && (
                   <div className="space-y-6">
-                    {/* Age */}
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Age (years)</label>
-                        <div className="relative">
-                          <input
-                            type="text"
-                            name="age"
-                            value={patientData.age}
-                            onChange={handleNumericChange}
-                            className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-                          />
-                        </div>
+                    {/* Age - stacked vertically */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1 text-center">Age (years)</label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          name="age"
+                          value={patientData.age}
+                          onChange={handleNumericChange}
+                          className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-center"
+                        />
                       </div>
-                      
-                      {/* BMI */}
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">BMI (kg/m²)</label>
-                        <div className="relative">
-                          <input
-                            type="text"
-                            name="bmi"
-                            value={patientData.bmi}
-                            onChange={handleNumericChange}
-                            className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-                          />
-                        </div>
+                    </div>
+                    
+                    {/* BMI - stacked vertically */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1 text-center">BMI (kg/m²)</label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          name="bmi"
+                          value={patientData.bmi}
+                          onChange={handleNumericChange}
+                          className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-center"
+                        />
                       </div>
                     </div>
                     
                     <div className="bg-blue-50 p-4 rounded-md">
-                      <h3 className="text-sm font-semibold text-blue-800 mb-2">Impact on Recurrence Risk</h3>
+                      <h3 className="text-sm font-semibold text-blue-800 mb-2">Impact on Recurrence Risk:</h3>
                       <ul className="text-sm text-blue-800 space-y-1 pl-5 list-disc">
                         <li>Older age is associated with increased recurrence risk</li>
                         <li>Lower BMI is associated with increased recurrence risk</li>
@@ -281,33 +258,41 @@ const RectalProlapseCalculator = () => {
                 {currentStep === 2 && (
                   <div className="space-y-6">
                     {/* ERP Length */}
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">External Rectal Prolapse Length (cm)</label>
-                        <div className="relative">
-                          <input
-                            type="text"
-                            name="erpLength"
-                            value={patientData.erpLength}
-                            onChange={handleNumericChange}
-                            className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-                          />
-                        </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1 text-center">External Rectal Prolapse Length (cm)</label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          name="erpLength"
+                          value={patientData.erpLength}
+                          onChange={handleNumericChange}
+                          className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-center"
+                        />
                       </div>
-                      
-                      {/* SMIS Score */}
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Preoperative SMIS Score</label>
-                        <div className="relative">
-                          <input
-                            type="text"
-                            name="smisScore"
-                            value={patientData.smisScore}
-                            onChange={handleNumericChange}
-                            className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-                          />
-                          <p className="mt-1 text-xs text-gray-500">Valid range: 0-24</p>
-                        </div>
+                    </div>
+                    
+                    {/* SMIS Score */}
+                    <div>
+                      <div className="flex items-center justify-center mb-1">
+                        <label className="text-sm font-medium text-gray-700">Preoperative Wexner/SMIS Score</label>
+                        <button
+                          type="button"
+                          onClick={() => setShowSmisExplanation(!showSmisExplanation)}
+                          className="ml-2 w-4 h-4 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center hover:bg-blue-700 focus:outline-none"
+                          title="Click for Wexner/SMIS scoring explanations"
+                        >
+                          i
+                        </button>
+                      </div>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          name="smisScore"
+                          value={patientData.smisScore}
+                          onChange={handleNumericChange}
+                          className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-center"
+                        />
+                        {/* <p className="mt-1 text-xs text-gray-500 text-center">Valid range: 0-24</p> */}
                       </div>
                     </div>
                     
@@ -315,7 +300,7 @@ const RectalProlapseCalculator = () => {
                       <h3 className="text-sm font-semibold text-blue-800 mb-2">Clinical Parameters Information</h3>
                       <ul className="text-sm text-blue-800 space-y-1 pl-5 list-disc">
                         <li>Longer prolapse is a strong predictor of recurrence</li>
-                        <li>SMIS (St. Mark's Incontinence Score) measures fecal incontinence severity</li>
+                        <li>Wexner score and SMIS (St. Mark's Incontinence Score) measures fecal incontinence severity</li>
                         <li>Higher SMIS scores indicate worse incontinence and higher recurrence risk</li>
                       </ul>
                     </div>
@@ -327,8 +312,8 @@ const RectalProlapseCalculator = () => {
                   <div className="space-y-6">
                     {/* Prior Surgery */}
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">History of Rectal Prolapse Surgery</label>
-                      <div className="flex space-x-4">
+                      <label className="block text-sm font-medium text-gray-700 mb-2 text-center">History of Rectal Prolapse Surgery</label>
+                      <div className="flex justify-center space-x-4">
                         <button
                           type="button"
                           className={`px-4 py-2 rounded-md ${patientData.priorSurgery ? 'bg-teal-600 text-white' : 'bg-gray-200 text-gray-700'} focus:outline-none focus:ring-2 focus:ring-teal-500`}
@@ -348,8 +333,8 @@ const RectalProlapseCalculator = () => {
                     
                     {/* Rectal Fixation */}
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Rectal Fixation</label>
-                      <div className="flex space-x-4">
+                      <label className="block text-sm font-medium text-gray-700 mb-2 text-center">Rectal Fixation</label>
+                      <div className="flex justify-center space-x-4">
                         <button
                           type="button"
                           className={`px-4 py-2 rounded-md ${patientData.rectalFixation ? 'bg-teal-600 text-white' : 'bg-gray-200 text-gray-700'} focus:outline-none focus:ring-2 focus:ring-teal-500`}
@@ -370,7 +355,7 @@ const RectalProlapseCalculator = () => {
                     <div className="bg-yellow-50 p-4 rounded-md border border-yellow-200">
                       <h3 className="text-sm font-semibold text-yellow-800 mb-2">Important Risk Factors</h3>
                       <ul className="text-sm text-yellow-800 space-y-1 pl-5 list-disc">
-                        <li><strong>Previous rectal prolapse surgery</strong> is the strongest predictor (OR 3.64, p&lt;0.001)</li>
+                        <li><strong>Previous rectal prolapse surgery</strong> is the strongest predictor</li>
                         <li>Patients with prior surgery have 11.6x higher recurrence risk</li>
                         <li>Rectal fixation provides a protective effect against recurrence</li>
                       </ul>
@@ -450,7 +435,6 @@ const RectalProlapseCalculator = () => {
                       }`}>
                         {results.riskCategory}
                       </div>
-                      {/* Removed expected recurrence rate */}
                     </div>
                   </div>
                 </div>
@@ -547,32 +531,46 @@ const RectalProlapseCalculator = () => {
             <h3 className="font-medium text-gray-800 mb-3">About the PROPR Calculator</h3>
             <p className="text-gray-600 mb-3">
               This calculator implements a validated predictive model for rectal prolapse recurrence risk after surgery. 
-              The model was developed using data from 132 patients with bootstrap validation (AUC 0.962, 95% CI: 0.935-0.987).
+              The model was developed based on research using data from patients with rectal prolapse surgery.
             </p>
             <div className="grid grid-cols-1 gap-4 text-xs">
               <div className="bg-teal-50 p-3 rounded">
-                <h4 className="font-medium text-teal-800 mb-1">Model Performance</h4>
-                <div className="text-teal-700 space-y-1">
-                  <div className="flex justify-between">
-                    <span>AUC:</span>
-                    <span>0.962</span>
+                <div className="flex items-center mb-1">
+                  <h4 className="font-medium text-teal-800">Model Performance</h4>
+                  <button
+                    onClick={() => setShowInfoExplanation(!showInfoExplanation)}
+                    className="ml-2 w-4 h-4 rounded-full bg-teal-600 text-white text-xs flex items-center justify-center hover:bg-teal-700 focus:outline-none"
+                    title="Click for explanations"
+                  >
+                    i
+                  </button>
+                </div>
+                
+                {showInfoExplanation && (
+                  <div className="mb-3 p-2 bg-white rounded border border-teal-200 text-teal-700">
+                    <div className="space-y-1">
+                      <p><strong>AUC (Area Under Curve):</strong> Measures the model's ability to discriminate between recurrence and non-recurrence. Value range from 0.5 (no discrimination) to 1.0 (perfect discrimination).</p>
+                      <p><strong>Sensitivity:</strong> The proportion of actual recurrence (correctly identified by the model).</p>
+                      <p><strong>Specificity:</strong> The proportion of non-recurrence correctly identified by the model.</p>
+                    </div>
                   </div>
-                  <div className="flex justify-between">
-                    <span>Sensitivity:</span>
-                    <span>90.0%</span>
+                )}
+Changes for specific files from there periodic files. All of the files of the nation is enhance it back to fix everything. Up enough to pass an actual vehicle that CLI is going to use.                 
+                <div className="text-teal-700 space-y-1 text-center">
+                  <div>
+                    <span className="font-medium">AUC: 0.962</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span>Specificity:</span>
-                    <span>95.5%</span>
+                  <div>
+                    <span className="font-medium">Sensitivity: 90.0%</span>
+                  </div>
+                  <div>
+                    <span className="font-medium">Specificity: 95.5%</span>
                   </div>
                 </div>
               </div>
             </div>
             <p className="text-xs text-gray-500 mt-3">
               This calculator is intended as a clinical decision support tool. Clinical judgment should always supersede calculator recommendations.
-            </p>
-            <p className="text-xs text-gray-700 mt-3 font-medium">
-              Developed by Gaurav Shah, IIT Gandhinagar, India. Julie Shah, KGMU, India.
             </p>
           </div>
         </div>
@@ -582,10 +580,73 @@ const RectalProlapseCalculator = () => {
         <div className="container mx-auto px-5 text-center text-sm">
           <p>© {new Date().getFullYear()} PROPR: PRedictor of rectal Prolapse Recurrence</p>
           <p className="text-teal-200 text-xs mt-1">
-            Based on research using data from patients with rectal prolapse surgery.
+            Developed at King George Medical University and IIT Gandhinagar
+          </p>
+          <p className="text-teal-200 text-xs mt-2">
+            <a 
+              href="mailto:gauravgaurav@iitgn.ac.in" 
+              className="hover:text-white underline"
+            >
+              Contact Us
+            </a>
           </p>
         </div>
       </footer>
+      
+      {/* Wexner/SMIS Score Modal */}
+      {showSmisExplanation && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-4xl max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-semibold text-gray-900">SMIS and Wexner Scoring Systems</h3>
+                <button
+                  onClick={() => setShowSmisExplanation(false)}
+                  className="text-gray-400 hover:text-gray-600 text-2xl leading-none"
+                  aria-label="Close modal"
+                >
+                  ×
+                </button>
+              </div>
+              
+              <div className="space-y-6">
+                <div>
+                  <h4 className="font-medium text-blue-800 mb-3">SMIS (St. Mark's Incontinence Score)</h4>
+                  <img 
+                    src={process.env.PUBLIC_URL + '/smis-score.jpg'} 
+                    alt="SMIS Scoring Table" 
+                    className="w-full h-auto border border-gray-300 rounded shadow-sm"
+                  />
+                </div>
+                
+                <div>
+                  <h4 className="font-medium text-blue-800 mb-3">Wexner Score</h4>
+                  <img 
+                    src={process.env.PUBLIC_URL + '/wexner-score.jpg'} 
+                    alt="Wexner Scoring Table" 
+                    className="w-full h-auto border border-gray-300 rounded shadow-sm"
+                  />
+                </div>
+                
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <p className="text-sm text-blue-700">
+                    <strong>Instructions:</strong> Use whichever scoring system is available. Both measure fecal incontinence severity with similar scoring ranges - SMIS (0-24) / Wexner (0-20). Choose the system your institution uses or the one you're most familiar with.
+                  </p>
+                </div>
+                
+                <div className="flex justify-end">
+                  <button
+                    onClick={() => setShowSmisExplanation(false)}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
