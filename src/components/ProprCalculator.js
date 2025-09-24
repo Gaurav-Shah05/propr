@@ -549,9 +549,12 @@ const RectalProlapseCalculator = () => {
                 {showInfoExplanation && (
                   <div className="mb-3 p-2 bg-white rounded border border-teal-200 text-teal-700">
                     <div className="space-y-1">
-                      <p><strong>AUC (Area Under Curve):</strong> Measures the model's ability to discriminate between recurrence and non-recurrence. Value range from 0.5 (no discrimination) to 1.0 (perfect discrimination).</p>
-                      <p><strong>Sensitivity:</strong> The proportion of actual recurrence (correctly identified by the model).</p>
-                      <p><strong>Specificity:</strong> The proportion of non-recurrence correctly identified by the model.</p>
+                      <p><strong>AUC (Area Under Curve):</strong></p>
+                      <p>Measures the model's ability to discriminate between recurrence and non-recurrence. Value range from 0.5 (no discrimination) to 1.0 (perfect discrimination).</p>
+                      <p><strong>Sensitivity:</strong> </p>
+                      <p>The proportion of actual recurrence (correctly identified by the model).</p>
+                      <p><strong>Specificity:</strong> </p>
+                      <p>The proportion of non-recurrence correctly identified by the model.</p>
                     </div>
                   </div>
                 )}
